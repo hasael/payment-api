@@ -1,0 +1,6 @@
+target/
+.idea/
+.bloop/
+.metals/
+project/metals.sbt
+private.conf
