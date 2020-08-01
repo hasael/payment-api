@@ -4,3 +4,5 @@ target/
 .metals/
 project/metals.sbt
 private.conf
+.serverless
+/template.yml
