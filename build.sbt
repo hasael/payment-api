@@ -2,9 +2,13 @@
 name := "payment-api-lambda"
 
 version := "0.1"
-scalaVersion := "2.12.8"
+scalaVersion := "2.12.11"
 scalacOptions += "-Ypartial-unification"
 assemblyJarName in assembly := "payment-api-lambda.jar"
+
+enablePlugins(SbtProguard)
+proguardOptions in Proguard ++= Seq("-dontnote", "-dontwarn", "-ignorewarnings")
+proguardOptions in Proguard += ProguardOptions.keepMain("Launch")
 
 val http4sVersion = "0.21.5"
 val catsEffectVersion = "2.1.3"

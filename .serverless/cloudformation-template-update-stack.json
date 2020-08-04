@@ -56,10 +56,10 @@
         }
       }
     },
-    "HelloLogGroup": {
+    "PaymentLogGroup": {
       "Type": "AWS::Logs::LogGroup",
       "Properties": {
-        "LogGroupName": "/aws/lambda/payment-api-lambda-test-hello"
+        "LogGroupName": "/aws/lambda/payment-api-lambda-test-payment"
       }
     },
     "IamRoleLambdaExecution": {
@@ -139,16 +139,16 @@
         }
       }
     },
-    "HelloLambdaFunction": {
+    "PaymentLambdaFunction": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/payment-api-lambda/test/1596485724506-2020-08-03T20:15:24.506Z/target/scala-2.12/payment-api-lambda.jar"
+          "S3Key": "serverless/payment-api-lambda/test/1596578959850-2020-08-04T22:09:19.850Z/target/scala-2.12/payment-api-lambda.jar"
         },
-        "FunctionName": "payment-api-lambda-test-hello",
+        "FunctionName": "payment-api-lambda-test-payment",
         "Handler": "LambdaEntryPoint::handle",
         "MemorySize": 512,
         "Role": {
@@ -157,19 +157,19 @@
             "Arn"
           ]
         },
-        "Runtime": "java8",
-        "Timeout": 6
+        "Runtime": "java11",
+        "Timeout": 30
       },
       "DependsOn": [
-        "HelloLogGroup"
+        "PaymentLogGroup"
       ]
     },
-    "HelloLambdaVersion54ml9ZbaJ5gmcdILAGnJZboF6ifkfASNPn3iQWkEA": {
+    "PaymentLambdaVersionM2gbm3VaSoBC88jdeehil22hX5QPa4g2GzH6NeGGI": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
-          "Ref": "HelloLambdaFunction"
+          "Ref": "PaymentLambdaFunction"
         },
         "CodeSha256": "nuN62y2b35el+4O6Pki6q0q5q71Ex3gNF4yq+62ZOKY="
       }
@@ -277,7 +277,7 @@
                 ":lambda:path/2015-03-31/functions/",
                 {
                   "Fn::GetAtt": [
-                    "HelloLambdaFunction",
+                    "PaymentLambdaFunction",
                     "Arn"
                   ]
                 },
@@ -289,7 +289,7 @@
         "MethodResponses": []
       }
     },
-    "ApiGatewayDeployment1596485723938": {
+    "ApiGatewayDeployment1596578959264": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -302,12 +302,12 @@
         "ApiGatewayMethodProxyVarAny"
       ]
     },
-    "HelloLambdaPermissionApiGateway": {
+    "PaymentLambdaPermissionApiGateway": {
       "Type": "AWS::Lambda::Permission",
       "Properties": {
         "FunctionName": {
           "Fn::GetAtt": [
-            "HelloLambdaFunction",
+            "PaymentLambdaFunction",
             "Arn"
           ]
         },
@@ -346,10 +346,10 @@
         "Ref": "ServerlessDeploymentBucket"
       }
     },
-    "HelloLambdaFunctionQualifiedArn": {
+    "PaymentLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "HelloLambdaVersion54ml9ZbaJ5gmcdILAGnJZboF6ifkfASNPn3iQWkEA"
+        "Ref": "PaymentLambdaVersionM2gbm3VaSoBC88jdeehil22hX5QPa4g2GzH6NeGGI"
       }
     },
     "ServiceEndpoint": {
