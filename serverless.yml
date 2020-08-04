@@ -2,8 +2,6 @@ service: payment-api-lambda
 
 provider:
   name: aws
-  runtime: java8
-  memorySize: 512
   region: eu-central-1
   stage: ${opt:stage, 'test'}
 
@@ -11,9 +9,11 @@ package:
   artifact: target/scala-2.12/payment-api-lambda.jar
 
 functions:
-  hello:
+  payment:
     handler: LambdaEntryPoint::handle
-    # Add the following lines:
+    runtime: java11
+    memorySize: 512
+    timeout: 30
     events:
       - http:
           path: "{proxy+}"
