@@ -19,9 +19,10 @@ libraryDependencies ++= Seq(
   "org.http4s" %% "http4s-blaze-server" % http4sVersion,
   "org.http4s" %% "http4s-blaze-client" % http4sVersion,
   "org.http4s" %% "http4s-circe" % http4sVersion,
-  "io.circe" %% "circe-core" % circeVersion,
+  "io.circe" %% "circe-com.hasael.paymentapi.core" % circeVersion,
   "io.circe" %% "circe-generic" % circeVersion,
-  "io.circe" %% "circe-parser" % circeVersion
+  "io.circe" %% "circe-parser" % circeVersion,
+  "org.scalatest" %% "scalatest" % "3.2.0" % "test"
 )
 
 addCompilerPlugin("com.olegpy" %% "better-monadic-for" % "0.3.0-M1")

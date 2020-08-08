@@ -1,17 +1,17 @@
+package com.hasael.paymentapi
+
 
 import java.io.{InputStream, OutputStream}
 import java.nio.charset.StandardCharsets
 
+import cats.effect._
+import cats.implicits._
 import io.circe._
 import io.circe.generic.auto._
 import io.circe.parser.decode
 import io.circe.syntax._
-import cats._
-import cats.implicits._
-import cats.effect._
-import org.http4s._
-import org.http4s.circe._
 import fs2._
+import org.http4s._
 
 import scala.concurrent._
 import scala.io.Source
@@ -21,8 +21,9 @@ object LambdaHandler {
     Method.fromString(s).left.map(_.getMessage)
   }
 }
-import LambdaHandler._
 trait LambdaHandler {
+  import LambdaHandler._
+
   protected implicit lazy val  defaultTimer: Timer[IO] = IO.timer(ExecutionContext.Implicits.global)
   protected implicit lazy val  defaultContextShift: ContextShift[IO] = IO.contextShift(ExecutionContext.Implicits.global)
 

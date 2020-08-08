@@ -1,4 +1,4 @@
-package core
+package com.hasael.paymentapi.core
 
 import cats.Applicative
 import cats.effect.Sync

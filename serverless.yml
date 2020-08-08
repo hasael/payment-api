@@ -10,7 +10,7 @@ package:
 
 functions:
   payment:
-    handler: LambdaEntryPoint::handle
+    handler: com.hasael.paymentapi.LambdaEntryPoint::handle
     runtime: java11
     memorySize: 512
     timeout: 30

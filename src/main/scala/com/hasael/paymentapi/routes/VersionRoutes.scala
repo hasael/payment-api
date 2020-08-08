@@ -1,4 +1,4 @@
-package routes
+package com.hasael.paymentapi.routes
 
 import cats.effect.Sync
 import org.http4s.HttpRoutes

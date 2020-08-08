@@ -1,7 +1,7 @@
-package services
+package com.hasael.paymentapi.services
 
 import cats.Applicative
-import core.{FailResponse, AuthorizationRequest, PaymentResponse, SuccessResponse}
+import com.hasael.paymentapi.core.{FailResponse, AuthorizationRequest, PaymentResponse, SuccessResponse}
 
 trait PaymentService[F[_]] {
   def authorize(request: AuthorizationRequest): F[PaymentResponse]

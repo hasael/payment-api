@@ -1,11 +1,13 @@
+package com.hasael.paymentapi
+
 import cats.Applicative
 import cats.effect.Sync
+import fs2.Stream
+import fs2.text.utf8Encode
 import org.http4s.dsl.io._
 import org.http4s.implicits._
 import org.http4s.server.Router
 import org.http4s.{HttpApp, HttpRoutes, Response}
-import fs2.Stream
-import fs2.text.utf8Encode
 
 class AppBuilder[F[_] : Sync] {
 
