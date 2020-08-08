@@ -1,6 +1,6 @@
 package com.hasael.paymentapi
 
-import Launch.{paymentService, routes}
+import HttpEntryPoint.{routes}
 import cats.effect.{ExitCode, IO, IOApp}
 import org.http4s.implicits._
 import org.http4s.server.blaze.BlazeServerBuilder
@@ -13,8 +13,12 @@ import cats.effect._
 import org.http4s.server.middleware._
 
 trait Routes {
+
+  def routes[F[_] : Sync](paymentService: PaymentService[F]) = PaymentRoutes(paymentService) <+>
+    VersionRoutes()
+}
+
+trait Services {
   val paymentService = PaymentService.impl[IO]
 
-  val routes = PaymentRoutes(paymentService) <+>
-    VersionRoutes()
 }
