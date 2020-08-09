@@ -1,6 +1,7 @@
 package com.hasael.paymentapi
 
 import cats.effect.{ExitCode, IO, IOApp}
+import com.hasael.paymentapi.routes.{Routes, Services}
 import org.http4s.implicits._
 import org.http4s.server.blaze.BlazeServerBuilder
 

@@ -1,6 +1,7 @@
 package com.hasael.paymentapi
 
 import cats.effect.IO
+import com.hasael.paymentapi.routes.{Routes, Services}
 import org.http4s.HttpApp
 import org.http4s.implicits._
 
