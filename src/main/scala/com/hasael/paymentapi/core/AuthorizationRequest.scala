@@ -5,7 +5,7 @@ import io.circe._
 import io.circe.generic.semiauto.deriveDecoder
 import org.http4s.EntityDecoder
 import org.http4s.circe._
-import Validations._
+import com.hasael.paymentapi.validation.Validations._
 
 case class AuthorizationRequest(data: String, trxId: String, additional: Option[String])
 

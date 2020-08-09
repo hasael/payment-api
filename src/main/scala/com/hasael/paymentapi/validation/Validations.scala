@@ -1,4 +1,4 @@
-package com.hasael.paymentapi.core
+package com.hasael.paymentapi.validation
 
 import io.circe.HCursor
 

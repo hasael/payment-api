@@ -11,6 +11,8 @@ import org.http4s.dsl.io._
 import org.http4s.implicits._
 import cats.implicits._
 import com.hasael.paymentapi.core.PaymentResponse._
+import com.hasael.paymentapi.validation._
+import com.hasael.paymentapi.validation.ValidationError._
 import org.http4s.circe._
 import org.http4s.circe.CirceEntityDecoder._
 
@@ -27,7 +29,8 @@ object PaymentRoutes {
 
           response <- {
             data match {
-              case Left(f) => BadRequest(f.cause.map(_.getMessage).getOrElse(f.getLocalizedMessage))
+              case Left(f) => BadRequest(ValidationError(f.cause.map(_.getMessage).getOrElse(f.getLocalizedMessage)))
+
               case Right(value) => for {
                 res <- paymentService.authorize(value)
                 respo <- Ok(res)

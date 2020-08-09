@@ -3,6 +3,7 @@ import cats.effect.IO
 import com.hasael.paymentapi.HttpEntryPoint.routes
 import com.hasael.paymentapi.core.{AuthorizationRequest, FailResponse, PaymentResponse}
 import com.hasael.paymentapi.services.PaymentService
+import com.hasael.paymentapi.validation.ValidationError
 import org.http4s._
 import org.http4s.implicits._
 import org.scalatest.funsuite.AnyFunSuite
@@ -35,6 +36,7 @@ class PaymentRoutesSpecs extends AnyFunSuite {
       .withEntity("{\n    \"data\":\"\"\n}")
     val resp = httpApp(req).unsafeRunSync()
     assert(resp.status.code == 400)
+    assert(resp.as[String].unsafeRunSync() == "{\"validationErrors\":\"trxid should have length of minimum 5\"}")
   }
 
 }
