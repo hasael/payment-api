@@ -1,9 +1,8 @@
 package com.hasael.paymentapi.core
 
 import cats.Applicative
-import org.http4s.{Entity, EntityEncoder, Headers}
-import io.circe.syntax._
 import io.circe._
+import org.http4s.EntityEncoder
 import org.http4s.circe._
 
 trait PaymentResponse {

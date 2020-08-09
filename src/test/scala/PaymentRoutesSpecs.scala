@@ -23,10 +23,18 @@ class PaymentRoutesSpecs extends AnyFunSuite {
   test("Authorization routes return value") {
     val req = Request[IO]().withMethod(Method.POST)
       .withUri(uri"/authorize")
-      .withEntity("{\n    \"data\":\"my data\"\n}")
+      .withEntity("{\n    \"data\":\"my data\",\"trxId\":\"1234567\"\n}")
     val resp = httpApp(req).unsafeRunSync()
     assert(resp.status.code == 200)
     assert(resp.as[String].unsafeRunSync() == "{\"response\":\"failed payment!\"}")
+  }
+
+  test("Authorization routes validate empty data") {
+    val req = Request[IO]().withMethod(Method.POST)
+      .withUri(uri"/authorize")
+      .withEntity("{\n    \"data\":\"\"\n}")
+    val resp = httpApp(req).unsafeRunSync()
+    assert(resp.status.code == 400)
   }
 
 }
