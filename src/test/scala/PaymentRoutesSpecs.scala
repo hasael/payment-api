@@ -1,9 +1,8 @@
-import cats.implicits._
 import cats.effect.IO
+import cats.implicits._
 import com.hasael.paymentapi.HttpEntryPoint.routes
 import com.hasael.paymentapi.core.{AuthorizationRequest, FailResponse, PaymentResponse}
 import com.hasael.paymentapi.services.PaymentService
-import com.hasael.paymentapi.validation.ValidationError
 import org.http4s._
 import org.http4s.implicits._
 import org.scalatest.funsuite.AnyFunSuite
@@ -33,10 +32,10 @@ class PaymentRoutesSpecs extends AnyFunSuite {
   test("Authorization routes validate empty data") {
     val req = Request[IO]().withMethod(Method.POST)
       .withUri(uri"/authorize")
-      .withEntity("{\n    \"data\":\"\"\n}")
+      .withEntity("{\n    \"data\":\"\",\"trxId\":\"1234\"\n}")
     val resp = httpApp(req).unsafeRunSync()
     assert(resp.status.code == 400)
-    assert(resp.as[String].unsafeRunSync() == "{\"validationErrors\":\"trxid should have length of minimum 5\"}")
+    assert(resp.as[String].unsafeRunSync() == "{\"validationErrors\":[\"trxid should have length of minimum 5\",\"data should not be empty\"]}")
   }
 
 }

@@ -10,7 +10,7 @@ proguardOptions in Proguard ++= Seq("-dontnote", "-dontwarn", "-ignorewarnings")
 proguardOptions in Proguard += ProguardOptions.keepMain("Launch")
 
 val http4sVersion = "0.21.7"
-val circeVersion = "0.13.0"
+val circeVersion = "0.14.0-M1"
 
 libraryDependencies ++= Seq(
   "org.http4s" %% "http4s-dsl" % http4sVersion,

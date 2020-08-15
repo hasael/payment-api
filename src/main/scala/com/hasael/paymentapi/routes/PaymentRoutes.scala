@@ -3,19 +3,15 @@ package com.hasael.paymentapi.routes
 import cats._
 import cats.implicits._
 import cats.effect._
-import com.hasael.paymentapi.core.{AuthorizationRequest, FailResponse, PaymentResponse, SuccessResponse}
+import com.hasael.paymentapi.core.AuthorizationRequest
 import org.http4s.{DecodeFailure, HttpRoutes}
 import com.hasael.paymentapi.services.PaymentService
 import org.http4s.dsl._
-import org.http4s.dsl.io._
 import org.http4s.implicits._
 import cats.implicits._
 import com.hasael.paymentapi.core.PaymentResponse._
-import com.hasael.paymentapi.validation._
-import com.hasael.paymentapi.validation.ValidationError._
 import org.http4s.circe._
-import org.http4s.circe.CirceEntityDecoder._
-
+import com.hasael.paymentapi.ops.RequestOps._
 
 object PaymentRoutes {
   def apply[F[_] : Sync](paymentService: PaymentService[F]): HttpRoutes[F] = {
@@ -24,20 +20,14 @@ object PaymentRoutes {
 
     HttpRoutes.of[F] {
       case req@POST -> Root / "authorize" =>
-        for {
-          data <- req.attemptAs[AuthorizationRequest].value
+        req.extract[AuthorizationRequest] {
+          data =>
+            for {
+              res <- paymentService.authorize(data)
+              respo <- Ok(res)
+            } yield respo
+        }
 
-          response <- {
-            data match {
-              case Left(f) => BadRequest(ValidationError(f.cause.map(_.getMessage).getOrElse(f.getLocalizedMessage)))
-
-              case Right(value) => for {
-                res <- paymentService.authorize(value)
-                respo <- Ok(res)
-              } yield respo
-            }
-          }
-        } yield response
 
     }
   }
