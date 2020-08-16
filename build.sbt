@@ -11,7 +11,7 @@ proguardOptions in Proguard += ProguardOptions.keepMain("Launch")
 
 val http4sVersion = "0.21.7"
 val circeVersion = "0.14.0-M1"
-
+val scanamoVersion ="1.0.0-M12"
 libraryDependencies ++= Seq(
   "org.http4s" %% "http4s-dsl" % http4sVersion,
   "org.http4s" %% "http4s-blaze-server" % http4sVersion,
@@ -20,6 +20,8 @@ libraryDependencies ++= Seq(
   "io.circe" %% "circe-core" % circeVersion,
   "io.circe" %% "circe-generic" % circeVersion,
   "io.circe" %% "circe-parser" % circeVersion,
+  "org.scanamo" %% "scanamo" % scanamoVersion,
+  "org.scanamo" %% "scanamo-testkit" % scanamoVersion,
   "org.scalatest" %% "scalatest" % "3.2.0" % "test"
 )
 
