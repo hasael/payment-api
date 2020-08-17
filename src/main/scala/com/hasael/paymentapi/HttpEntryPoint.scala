@@ -2,6 +2,7 @@ package com.hasael.paymentapi
 
 import cats.effect.{ExitCode, IO, IOApp}
 import com.hasael.paymentapi.routes.{Routes, Services}
+import org.http4s.HttpApp
 import org.http4s.implicits._
 import org.http4s.server.blaze.BlazeServerBuilder
 
@@ -20,3 +21,10 @@ object HttpEntryPoint extends IOApp with Routes with Services {
       .as(ExitCode.Success)
   }
 }
+class LambdaEntryPoint extends LambdaHandler with Routes with Services {
+
+  override def run: IO[HttpApp[IO]] = IO {
+    routes(paymentService).orNotFound
+  }
+}
+

@@ -2,7 +2,7 @@ package com.hasael.paymentapi.routes
 
 import cats.effect.{IO, _}
 import cats.implicits._
-import com.hasael.paymentapi.repository.DynamoDbRepository
+import com.hasael.paymentapi.repository.{DynamoClientProvider, DynamoDbRepository}
 import com.hasael.paymentapi.services.{PaymentService, PspService}
 import org.scanamo.LocalDynamoDB
 
@@ -13,6 +13,6 @@ trait Routes {
 }
 
 trait Services {
-  val paymentService = PaymentService.impl[IO](PspService.impl[IO], DynamoDbRepository.impl[IO](LocalDynamoDB.client()))
+  val paymentService = PaymentService.impl[IO](PspService.impl[IO], DynamoDbRepository.impl[IO](new DynamoClientProvider().client))
 
 }

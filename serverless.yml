@@ -6,7 +6,7 @@ provider:
   stage: ${opt:stage, 'test'}
 
 package:
-  artifact: target/scala-2.12/payment-api-lambda.jar
+  artifact: target/scala-2.13/payment-api-lambda.jar
 
 functions:
   payment:
