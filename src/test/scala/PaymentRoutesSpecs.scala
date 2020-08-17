@@ -1,17 +1,17 @@
 import cats.effect.IO
 import cats.implicits._
-import com.hasael.paymentapi.HttpEntryPoint.routes
 import com.hasael.paymentapi.core.{AuthorizationRequest, FailResponse, PaymentResponse}
-import com.hasael.paymentapi.services.PaymentService
+import com.hasael.paymentapi.routes.Routes
+import com.hasael.paymentapi.services.{PaymentService, Services}
 import org.http4s._
 import org.http4s.implicits._
 import org.scalatest.funsuite.AnyFunSuite
 
 class PaymentRoutesSpecs extends AnyFunSuite {
 
-  private def httpApp = routes[IO](new PaymentService[IO] {
-    override def authorize(request: AuthorizationRequest): IO[PaymentResponse] =  FailResponse("failed payment!").pure[IO]
-  }).orNotFound
+  private def httpApp = Routes.load[IO](Services[IO](new PaymentService[IO] {
+    override def authorize(request: AuthorizationRequest): IO[PaymentResponse] = FailResponse("failed payment!").pure[IO]
+  }))
 
   test("Version routes should return 200") {
     val req = Request[IO]().withMethod(Method.GET)
