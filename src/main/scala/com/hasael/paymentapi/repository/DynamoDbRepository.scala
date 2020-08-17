@@ -15,9 +15,9 @@ trait DynamoDbRepository[F[_]] {
 }
 
 object DynamoDbRepository {
-  def impl[F[_] : Sync](client: AmazonDynamoDBAsync): DynamoDbRepository[F] = new DynamoDbRepository[F] {
+  def impl[F[_] : Sync](client: AmazonDynamoDBAsync, tableName: String): DynamoDbRepository[F] = new DynamoDbRepository[F] {
     override def save(authorizationRequest: AuthorizationRequest, response: PaymentResponse): F[Unit] = {
-      val table = Table[AuthorizationData]("authorizationData")
+      val table = Table[AuthorizationData](tableName)
       val data = AuthorizationData.from(authorizationRequest, response)
       Scanamo(client).exec(table.put(data)).pure[F]
     }
