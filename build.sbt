@@ -6,8 +6,11 @@ scalaVersion := "2.13.1"
 assemblyJarName in assembly := "payment-api-lambda.jar"
 
 enablePlugins(SbtProguard)
-proguardOptions in Proguard ++= Seq("-dontnote", "-dontwarn", "-ignorewarnings")
-proguardOptions in Proguard += ProguardOptions.keepMain("Launch")
+proguardOptions in Proguard ++= Seq("-overloadaggressively", "-allowaccessmodification", "-optimizationpasses 5",
+  "-repackageclasses 'hidden'", "-dontpreverify", "-dontobfuscate","-verbose")
+proguardOptions in Proguard += ProguardOptions.keepMain("LambdaEntryPoint")
+proguardInputs in Proguard := (dependencyClasspath in Compile).value.files
+proguardFilteredInputs in Proguard ++= ProguardOptions.noFilter((packageBin in Compile).value)
 
 val http4sVersion = "0.21.7"
 val circeVersion = "0.14.0-M1"
