@@ -3,16 +3,21 @@ package com.hasael.paymentapi.lambda
 import java.io.{InputStream, OutputStream}
 import java.nio.charset.StandardCharsets
 
-import cats.effect._
-import cats.implicits._
-import io.circe._
-import io.circe.generic.auto._
+import io.circe.Decoder
+import cats.effect.{Concurrent, ContextShift, IO, Resource, Sync, Timer}
+import cats.syntax.applicative.catsSyntaxApplicativeId
+import cats.syntax.parallel.catsSyntaxTuple2Parallel
+import cats.syntax.functor.toFunctorOps
+import cats.instances.either.catsStdBitraverseForEither
+import cats.syntax.bifunctor.toBifunctorOps
+import cats.syntax.monadError.catsSyntaxMonadErrorRethrow
+import io.circe.generic.auto.{exportDecoder, exportEncoder}
 import io.circe.parser.decode
-import io.circe.syntax._
-import fs2._
-import org.http4s._
+import io.circe.syntax.EncoderOps
+import fs2.{Stream, text}
+import org.http4s.{EmptyBody, Header, Headers, HttpApp, Method, ParseResult, Request, Response, Uri}
 
-import scala.concurrent._
+import scala.concurrent.ExecutionContext
 import scala.io.Source
 
 object LambdaHandler {

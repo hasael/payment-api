@@ -1,9 +1,9 @@
 package com.hasael.paymentapi.core
 
 import cats.Applicative
-import io.circe._
+import io.circe.{Encoder, Json}
 import org.http4s.EntityEncoder
-import org.http4s.circe._
+import org.http4s.circe.jsonEncoderOf
 
 trait PaymentResponse {
  def response:String

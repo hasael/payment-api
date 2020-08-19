@@ -1,5 +1,5 @@
 import org.scalatest.funsuite.AnyFunSuite
-import cats.effect._
+import cats.effect.IO
 import com.hasael.paymentapi.config.Config
 
 import scala.concurrent.ExecutionContext.global

@@ -2,9 +2,9 @@ package com.hasael.paymentapi.validation
 
 import cats.Applicative
 import cats.effect.Sync
-import io.circe.generic.semiauto._
+import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
 import org.http4s.{EntityDecoder, EntityEncoder}
-import org.http4s.circe._
+import org.http4s.circe.{jsonEncoderOf, accumulatingJsonOf}
 
 case class ValidationError(validationErrors: List[String])
 

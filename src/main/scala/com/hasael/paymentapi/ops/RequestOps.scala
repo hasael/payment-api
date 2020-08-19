@@ -1,13 +1,11 @@
 package com.hasael.paymentapi.ops
 
-import cats.effect.Sync
+import cats.syntax.flatMap.catsSyntaxFlatten
 import cats.{Applicative, Monad}
-import org.http4s._
-import org.http4s.implicits._
-import org.http4s.circe._
-import cats.implicits._
 import com.hasael.paymentapi.validation.ValidationError
-import org.http4s.dsl._
+import org.http4s.circe.DecodingFailures
+import org.http4s.{DecodeFailure, EntityDecoder, Request, Response, Status}
+
 
 object RequestOps {
 
@@ -26,7 +24,7 @@ object RequestOps {
         case Some(d) => ValidationError(List(d.getMessage))
         case None => ValidationError(List("Could not parse request"))
       }
-      Response[F](Status.BadRequest).withEntity(validationErros).pure[F]
+      Applicative[F].pure(Response[F](Status.BadRequest).withEntity(validationErros))
     }
 
   }

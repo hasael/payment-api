@@ -12,7 +12,7 @@ functions:
   payment:
     handler: com.hasael.paymentapi.LambdaEntryPoint::handle
     runtime: java11
-    memorySize: 512
+    memorySize: 2048
     timeout: 30
     events:
       - http:

@@ -1,13 +1,12 @@
 package com.hasael.paymentapi.repository
 
 import cats.effect.Sync
-import com.hasael.paymentapi.core.{AuthorizationRequest, PaymentResponse}
-import org.scanamo._
-import org.scanamo.syntax._
-import org.scanamo.generic.auto._
-import cats.implicits._
+import cats.syntax.applicative.catsSyntaxApplicativeId
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBAsync
+import com.hasael.paymentapi.core.{AuthorizationRequest, PaymentResponse}
 import com.hasael.paymentapi.repository.models.AuthorizationData
+import org.scanamo.generic.auto._
+import org.scanamo.{Scanamo, Table}
 
 trait DynamoDbRepository[F[_]] {
 

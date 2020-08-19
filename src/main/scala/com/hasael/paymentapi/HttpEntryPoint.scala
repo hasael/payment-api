@@ -1,8 +1,6 @@
 package com.hasael.paymentapi
 
 import cats.effect.{ExitCode, IO, IOApp}
-import org.http4s.HttpApp
-import org.http4s.implicits._
 import org.http4s.server.blaze.BlazeServerBuilder
 
 import scala.concurrent.ExecutionContext.Implicits.global

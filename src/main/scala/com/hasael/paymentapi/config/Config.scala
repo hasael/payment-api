@@ -3,9 +3,9 @@ package com.hasael.paymentapi.config
 import cats.effect.{Blocker, ContextShift, Resource, Sync}
 import com.hasael.paymentapi.config.Config.{DynamoDbConbfig, ServerConfig}
 import com.typesafe.config.ConfigFactory
-import pureconfig._
+import pureconfig.ConfigSource
 import pureconfig.module.catseffect.syntax._
-import pureconfig.generic.auto._
+import pureconfig.generic.auto.exportReader
 
 case class Config(dynamoDb: DynamoDbConbfig, server: ServerConfig)
 
